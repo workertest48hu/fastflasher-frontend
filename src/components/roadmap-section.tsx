@@ -99,7 +99,7 @@ export default function RoadmapSection() {
           <h2 className="scroll-trigger section-title">Plan Your Journey</h2>
           <p className="scroll-trigger text-gray-300 mb-12">
             Chart your course for success with our concise, actionable roadmap. Our strategic timeline outlines key
-            milestones in OxHash's evolution, providing a clear vision for the future of our ecosystem.
+            milestones in Fast Flasher's evolution, providing a clear vision for the future of our ecosystem.
           </p>
         </div>
 

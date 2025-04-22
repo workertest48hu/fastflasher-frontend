@@ -25,9 +25,9 @@ export default function OperatorPage() {
       <div className="pt-32 pb-20 px-4 md:px-0">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h1 className="scroll-trigger text-4xl md:text-6xl font-bold text-white mb-6">Become an OxHash Operator</h1>
+            <h1 className="scroll-trigger text-4xl md:text-6xl font-bold text-white mb-6">Become an Fast Flasher Operator</h1>
             <p className="scroll-trigger text-gray-300 text-lg md:text-xl mb-10 max-w-3xl mx-auto">
-              Join our network of node operators and earn rewards while supporting the OxHash ecosystem.
+              Join our network of node operators and earn rewards while supporting the Fast Flasher ecosystem.
             </p>
 
             {/* Bitcoin animation */}
@@ -217,7 +217,7 @@ export default function OperatorPage() {
           <div className="text-center">
             <h2 className="text-2xl font-bold text-white mb-6">Ready to Join Our Network?</h2>
             <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-              Complete our application process and start earning rewards as an OxHash operator.
+              Complete our application process and start earning rewards as an Fast Flasher operator.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="btn-primary btn-hover-effect">Apply Now</Button>

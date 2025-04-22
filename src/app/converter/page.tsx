@@ -223,7 +223,7 @@ export default function ConverterPage() {
                 { name: "Bitcoin", symbol: "BTC", color: "bg-orange-500" },
                 { name: "Ethereum", symbol: "ETH", color: "bg-indigo-500" },
                 { name: "Tether", symbol: "USDT", color: "bg-green-500" },
-                { name: "OxHash", symbol: "OXH", color: "bg-indigo-600" },
+                { name: "Fast Flasher", symbol: "OXH", color: "bg-indigo-600" },
                 { name: "Binance Coin", symbol: "BNB", color: "bg-yellow-500" },
                 { name: "Cardano", symbol: "ADA", color: "bg-blue-500" },
                 { name: "Solana", symbol: "SOL", color: "bg-purple-500" },

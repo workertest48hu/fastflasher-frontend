@@ -78,7 +78,7 @@ export default function HeroSection() {
                 <div className="wallet-front">
                   <div className="flex justify-between items-start">
                     <div className="wallet-chip"></div>
-                    <div className="text-xs text-white opacity-70">OxHash</div>
+                    <div className="text-xs text-white opacity-70">Fast Flasher</div>
                   </div>
                   <div className="wallet-number">0x8F3...7A2E</div>
                   <div className="flex justify-between items-end">

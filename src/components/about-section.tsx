@@ -18,10 +18,10 @@ export default function AboutSection() {
           </div>
 
           <div className="scroll-trigger-right order-1 md:order-2">
-            <div className="text-sm font-medium text-blue-400 mb-2">ABOUT OXHASH</div>
-            <h2 className="section-title">Empowering Your Portfolio with OxHash</h2>
+            <div className="text-sm font-medium text-blue-400 mb-2">ABOUT Fast Flasher</div>
+            <h2 className="section-title">Empowering Your Portfolio with Fast Flasher</h2>
             <p className="text-gray-300 mb-8">
-              At OxHash, we take pride in offering a comprehensive asset ecosystem that empowers users to diversify and
+              At Fast Flasher, we take pride in offering a comprehensive asset ecosystem that empowers users to diversify and
               optimize their portfolios effortlessly. Our Layer 2 solution provides unparalleled speed, security, and
               scalability for all your blockchain needs.
             </p>
@@ -66,9 +66,9 @@ export default function AboutSection() {
             </ul>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button className="btn-primary btn-hover-effect">Build on OxHash</Button>
+              <Button className="btn-primary btn-hover-effect">Build on Fast Flasher</Button>
               <Button variant="outline" className="btn-outline">
-                Apply for OxHash Grant
+                Apply for Fast Flasher Grant
               </Button>
             </div>
           </div>

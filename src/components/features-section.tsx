@@ -13,12 +13,12 @@ export default function FeaturesSection() {
     {
       title: "Low Fees, Scalability",
       description:
-        "OxHash offers low fees and high scalability as an EVM-compatible chain, ensuring swift transaction processing...",
+        "Fast Flasher offers low fees and high scalability as an EVM-compatible chain, ensuring swift transaction processing...",
     },
     {
       title: "Interoperability",
       description:
-        "OxHash consensus-free interoperability takes blockchain interoperability to the next level, ensuring consistency",
+        "Fast Flasher consensus-free interoperability takes blockchain interoperability to the next level, ensuring consistency",
     },
     {
       title: "Blockchain Routing",

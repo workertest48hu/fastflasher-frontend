@@ -153,9 +153,9 @@ export default function Navbar() {
               <div className="flex flex-shrink-0 items-center">
                 <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>
                   {/* Use next/image for optimized images */}
-                  <Image src={logo} alt="OxHash logo" width={40} height={40} className="h-10 w-auto block"/>
+                  <Image src={logo} alt="Fast Flasher logo" width={40} height={40} className="h-10 w-auto block"/>
                   {/* Brand name hidden on very small screens */}
-                  <span className="text-xl font-bold text-gray-800 dark:text-white hidden sm:inline">OxHash</span>
+                  <span className="text-xl font-bold text-gray-800 dark:text-white hidden sm:inline">Fast Flasher</span>
                 </Link>
               </div>
 
@@ -284,7 +284,7 @@ export default function Navbar() {
               <div className="wallet-front">
                 <div className="flex justify-between items-start">
                   <div className="wallet-chip"></div>
-                  <div className="text-xs text-white opacity-70">OxHash</div>
+                  <div className="text-xs text-white opacity-70">Fast Flasher</div>
                 </div>
                 <div className="wallet-number">0x8F3...7A2E</div> {/* Example Address */}
                 <div className="flex justify-between items-end">

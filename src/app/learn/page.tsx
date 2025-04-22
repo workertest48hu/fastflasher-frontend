@@ -90,7 +90,7 @@ export default function LearnPage() {
           <li><strong>Bitcoin (BTC):</strong> The first and most valuable cryptocurrency, created in 2009.</li>
           <li><strong>Ethereum (ETH):</strong> A platform for decentralized applications and smart contracts.</li>
           <li><strong>Tether (USDT):</strong> A stablecoin pegged to the US dollar.</li>
-          <li><strong>OxHash (OXH):</strong> Our native token for the OxHash ecosystem.</li>
+          <li><strong>Fast Flasher (OXH):</strong> Our native token for the Fast Flasher ecosystem.</li>
         </ul>
         
         <h4 class="text-lg font-semibold mt-4 mb-2">Key Concepts:</h4>
@@ -203,8 +203,8 @@ contract SimpleStorage {
           <li><strong>Inherited Security:</strong> Leverages the security of the underlying blockchain.</li>
         </ul>
         
-        <h4 class="text-lg font-semibold mt-4 mb-2">OxHash Layer 2 Solution:</h4>
-        <p>OxHash provides a Layer 2 solution that offers high throughput, low fees, and seamless interoperability with multiple blockchains, making it ideal for building decentralized applications at scale.</p>
+        <h4 class="text-lg font-semibold mt-4 mb-2">Fast Flasher Layer 2 Solution:</h4>
+        <p>Fast Flasher provides a Layer 2 solution that offers high throughput, low fees, and seamless interoperability with multiple blockchains, making it ideal for building decentralized applications at scale.</p>
       `,
     },
   ]
@@ -247,7 +247,7 @@ contract SimpleStorage {
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-8 text-center">
             <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4">Ready to Start Building?</h2>
             <p className="text-gray-600 dark:text-gray-300 mb-6">
-              Apply your blockchain knowledge by building on OxHash's Layer 2 solution
+              Apply your blockchain knowledge by building on Fast Flasher's Layer 2 solution
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="btn-primary btn-hover-effect">Start Building</Button>

@@ -6,7 +6,7 @@ export default function StatsSection() {
       value: "2M+",
       numericValue: "2000000",
       label: "Player wallets created",
-      description: "Gaining access to OxHash ecosystem of games and digital assets",
+      description: "Gaining access to Fast Flasher ecosystem of games and digital assets",
     },
     {
       value: "Thousands",
@@ -25,7 +25,7 @@ export default function StatsSection() {
       value: "96%",
       numericValue: "96",
       label: "Development Cost",
-      description: "Save time and money with OxHash developer-first suite of SDKs and UI tools",
+      description: "Save time and money with Fast Flasher developer-first suite of SDKs and UI tools",
     },
   ]
 

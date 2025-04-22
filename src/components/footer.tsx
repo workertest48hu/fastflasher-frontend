@@ -12,10 +12,10 @@ export default function Footer() {
                   #
                 </div>
               </div>
-              <span className="text-xl font-bold text-white">OxHash</span>
+              <span className="text-xl font-bold text-white">Fast Flasher</span>
             </div>
             <p className="text-gray-300 mb-6">
-              OxHash is a blockchain ecosystem powered by OxHash Ethereum L2 scaling solution.
+              Fast Flasher is a blockchain ecosystem powered by Fast Flasher Ethereum L2 scaling solution.
             </p>
             <div className="text-lg font-semibold mb-4 text-white">Join the community</div>
             <div className="flex space-x-4">
@@ -158,7 +158,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 pt-8 border-t border-black text-center">
-          <p className="text-gray-300">&copy; {new Date().getFullYear()} OxHash. All rights reserved.</p>
+          <p className="text-gray-300">&copy; {new Date().getFullYear()} Fast Flasher. All rights reserved.</p>
         </div>
       </div>
     </footer>

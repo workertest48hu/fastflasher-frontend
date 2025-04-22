@@ -9,8 +9,8 @@ import { ThemeProvider } from "@/context/theme-context"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "OxHash - A better way to build blockchain products",
-  description: "OxHash is a better way to build blockchain products with Layer 2 technology",
+  title: "Fast Flasher - A better way to build blockchain products",
+  description: "Fast Flasher is a better way to build blockchain products with Layer 2 technology",
 }
 
 export default function RootLayout({

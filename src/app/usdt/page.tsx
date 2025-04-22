@@ -2,381 +2,410 @@
 
 import type React from "react"
 
-import { useEffect, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { initAnimations } from "@/lib/animation"
-import PageWrapper from "@/components/page-wrappper"
-import { useRouter } from "next/navigation"
+import { useState, useRef } from "react"
+import * as emailjs from "@emailjs/browser"
+import Image from 'next/image'; // Import Image component if using Next.js for optimization
 
-interface CryptoCardProps {
+interface NetworkOption {
+  id: string
   name: string
   symbol: string
   color: string
-  icon: React.ReactNode
-  description: string
-  isExpanded: boolean
-  onToggle: () => void
-  onSelect: () => void
-}
-
-const CryptoCard = ({ name, symbol, color, icon, description, isExpanded, onToggle, onSelect }: CryptoCardProps) => {
-  return (
-    <div
-      className={`animate-fade-in crypto-card rounded-lg p-8 flex flex-col items-center ${isExpanded ? "expanded" : ""}`}
-      onClick={onToggle}
-    >
-      <div
-        className={`h-24 w-24 bg-blue-900 rounded-full flex items-center justify-center mb-6 floating ${isExpanded ? "glow" : ""}`}
-      >
-        {icon}
-      </div>
-      <h3 className="text-xl font-bold mb-2 text-white">
-        {name} ({symbol})
-      </h3>
-      <p className="text-gray-300 text-sm mb-6 text-center">{description}</p>
-      <Button
-        className="w-full bg-blue-600 hover:bg-blue-700 btn-hover-effect"
-        onClick={(e) => {
-          e.stopPropagation()
-          onSelect()
-        }}
-      >
-        Select
-      </Button>
-
-      {isExpanded && (
-        <div className="crypto-details mt-8 w-full">
-          <div className="border-t border-blue-800 pt-6 mt-4">
-            <h4 className="text-lg font-semibold mb-4 text-white">Features of {name} USDT</h4>
-
-            <div className="space-y-4">
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-900 flex items-center justify-center mr-3 mt-0.5">
-                  <span className="text-xs text-white">1</span>
-                </div>
-                <div>
-                  <h5 className="font-medium text-white">Wallet to wallet transfer maximum 60</h5>
-                  <p className="text-gray-300 text-sm mt-1">
-                    Direct transfers between wallets with a maximum chain of 60 transfers.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-900 flex items-center justify-center mr-3 mt-0.5">
-                  <span className="text-xs text-white">2</span>
-                </div>
-                <div>
-                  <h5 className="font-medium text-white">Flash USDT expiry 140 to 160 days</h5>
-                  <p className="text-gray-300 text-sm mt-1">
-                    After this period, it will automatically disappear from the wallet.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-900 flex items-center justify-center mr-3 mt-0.5">
-                  <span className="text-xs text-white">3</span>
-                </div>
-                <div>
-                  <h5 className="font-medium text-white">You can resell your Flash back to us</h5>
-                  <p className="text-gray-300 text-sm mt-1">
-                    If your Flash USDT has been in your wallet for 30 days or more, you can sell it back.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-900 flex items-center justify-center mr-3 mt-0.5">
-                  <span className="text-xs text-white">4</span>
-                </div>
-                <div>
-                  <h5 className="font-medium text-white">Flash USDT equivalent to real USDT</h5>
-                  <p className="text-gray-300 text-sm mt-1">
-                    Can be used on platforms like gambling sites just like real USDT.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-900 flex items-center justify-center mr-3 mt-0.5">
-                  <span className="text-xs text-white">5</span>
-                </div>
-                <div>
-                  <h5 className="font-medium text-white">Flash USDT cannot be used in P2P</h5>
-                  <p className="text-gray-300 text-sm mt-1">It is strictly limited to internal transfers.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start">
-                <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-900 flex items-center justify-center mr-3 mt-0.5">
-                  <span className="text-xs text-white">6</span>
-                </div>
-                <div>
-                  <h5 className="font-medium text-white">Not tradable</h5>
-                  <p className="text-gray-300 text-sm mt-1">
-                    Flash USDT cannot be withdrawn. It is designed for use within the platform.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 pt-6 border-t border-blue-800">
-              <div className="flex items-center justify-between mb-4">
-                <span className="text-gray-300">1 USDT = 5 FLASH USDT</span>
-                <span className="text-gray-300">Min: 10 USDT</span>
-              </div>
-
-              <Button
-                className="w-full bg-blue-600 hover:bg-blue-700 btn-hover-effect"
-                onClick={(e) => {
-                  e.stopPropagation()
-                  onSelect()
-                }}
-              >
-                Convert Now
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  )
+  logo: string // Path to the logo image
+  walletAddress: string
 }
 
 export default function USDTPage() {
-  const router = useRouter()
+  const [selectedNetwork, setSelectedNetwork] = useState<NetworkOption | null>(null)
+  const [transactionId, setTransactionId] = useState("")
+  const [walletAddress, setWalletAddress] = useState("")
+  const [amount, setAmount] = useState("20.00")
+  const [email, setEmail] = useState("")
+  const [copied, setCopied] = useState(false)
 
-  useEffect(() => {
-    initAnimations()
-
-    // Create particle animation
-    const particlesContainer = document.querySelector(".particles")
-    if (particlesContainer) {
-      for (let i = 0; i < 50; i++) {
-        const particle = document.createElement("div")
-        particle.classList.add("particle")
-
-        // Random position
-        particle.style.left = `${Math.random() * 100}%`
-        particle.style.top = `${Math.random() * 100}%`
-
-        // Random size
-        const size = Math.random() * 3 + 1
-        particle.style.width = `${size}px`
-        particle.style.height = `${size}px`
-
-        // Random opacity
-        particle.style.opacity = `${Math.random() * 0.5 + 0.3}`
-
-        // Random animation
-        particle.style.animation = `floating ${Math.random() * 10 + 5}s linear infinite`
-
-        particlesContainer.appendChild(particle)
-      }
+  const networks: NetworkOption[] = [
+    {
+      id: "polygon",
+      name: "POL",
+      symbol: "polygon",
+      color: "#8247E5",
+      logo: "/polygon.png", // Path relative to the public folder
+      walletAddress: "TLRgHFbz3b9uDaMUNnpbWoGvQ66H2hW4L7",
+    },
+    {
+      id: "tron",
+      name: "TRON",
+      symbol: "TRC20",
+      color: "#26A17B",
+      logo: "/tot.png", // Path relative to the public folder
+      walletAddress: "TLRgHFbz3b9uDaMUNnpbWoGvQ66H2hW4L7",
+    },
+    {
+      id: "ethereum",
+      name: "ETH",
+      symbol: "ERC20",
+      color: "#627EEA",
+      logo: "/ethereum.png", // Path relative to the public folder
+      walletAddress: "TLRgHFbz3b9uDaMUNnpbWoGvQ66H2hW4L7",
+    },
+    {
+      id: "binance",
+      name: "BINANCE",
+      symbol: "BEP20",
+      color: "#F0B90B",
+      logo: "/gold.webp", // Path relative to the public folder
+      walletAddress: "TLRgHFbz3b9uDaMUNnpbWoGvQ66H2hW4L7",
+    },
+    {
+      id: "xrpbinance",
+      name: "XRP BINANCE",
+      symbol: "BEP20",
+      color: "#F0B90B",
+      logo: "/xrpbinance.png", // Path relative to the public folder
+      walletAddress: "TLRgHFbz3b9uDaMUNnpbWoGvQ66H2hW4L7",
     }
-  }, [])
+  ]
 
-  const [expandedCard, setExpandedCard] = useState<string | null>(null)
+  const handleNetworkSelect = (network: NetworkOption) => {
+    setSelectedNetwork(network)
+  }
 
-  const toggleCard = (cardId: string) => {
-    if (expandedCard === cardId) {
-      setExpandedCard(null)
-    } else {
-      setExpandedCard(cardId)
+  const handleCopyAddress = () => {
+    if (selectedNetwork) {
+      navigator.clipboard.writeText(selectedNetwork.walletAddress)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
     }
   }
 
-  const navigateToConverter = () => {
-    router.push("/converter")
+  // --- EmailJS Setup ---
+  // IMPORTANT: Replace with your actual EmailJS credentials
+  const SERVICE_ID = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 'YOUR_SERVICE_ID';
+  const TEMPLATE_ID = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
+  const PUBLIC_KEY = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || 'YOUR_PUBLIC_KEY';
+  // It's highly recommended to use environment variables for these ^
+
+  const form = useRef<HTMLFormElement>(null); // Type the ref for the form element
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!form.current) {
+      console.error("Form ref is not attached.");
+      return;
+    }
+    if (!selectedNetwork) {
+        console.error("No network selected.");
+        // Optionally, show an error to the user
+        return;
+    }
+    if (!SERVICE_ID || SERVICE_ID === 'YOUR_SERVICE_ID' ||
+        !TEMPLATE_ID || TEMPLATE_ID === 'YOUR_TEMPLATE_ID' ||
+        !PUBLIC_KEY || PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+        console.error("EmailJS credentials are not configured properly. Please check your .env file or constants.");
+        // Optionally, show a user-friendly error message
+        alert("Submission service is currently unavailable. Please try again later.");
+        return;
+    }
+
+
+    console.log("Submitting form with data:", {
+      network: selectedNetwork?.name,
+      symbol: selectedNetwork?.symbol, // Added symbol for clarity in email
+      transactionId,
+      walletAddress,
+      amount,
+      email,
+      recipientWallet: selectedNetwork?.walletAddress // Added recipient wallet for clarity
+    })
+
+    // Prepare template parameters matching your EmailJS template
+    const templateParams = {
+      selected_network_name: selectedNetwork?.name,
+      selected_network_symbol: selectedNetwork?.symbol,
+      transaction_id: transactionId,
+      user_wallet_address: walletAddress,
+      transfer_amount: amount,
+      user_email: email,
+      recipient_wallet_address: selectedNetwork?.walletAddress,
+      transaction_time: new Date().toLocaleString(), // or use a custom format
+    };
+    
+
+    emailjs
+      .send(SERVICE_ID, TEMPLATE_ID, templateParams, PUBLIC_KEY) // Use send instead of sendForm if you manually construct params
+      .then(
+        (result) => {
+          console.log('SUCCESS!', result.status, result.text);
+          alert('Submission successful! We will process your request.');
+          setSelectedNetwork(null); 
+          setTransactionId('');
+          setWalletAddress('');
+          setEmail('');
+        },
+        (error) => {
+          console.log('FAILED...', error.text);
+          alert(`Submission failed: ${error.text}. Please try again.`);
+        },
+      );
+  };
+
+  const handleBack = () => {
+    setSelectedNetwork(null)
   }
+
+
+  const images = [
+    "https://flasherr.in/user/img/brand/brand_img07.png",
+    "https://flasherr.in/user/img/brand/brand_img04.png",
+    "https://flasherr.in/user/img/brand/brand_img01.png",
+    "https://flasherr.in/user/img/brand/brand_img02.png",
+    "https://flasherr.in/user/img/brand/brand_img05.png",
+    "https://flasherr.in/user/img/brand/brand_img03.png",
+  ];
+
+
+  const marqueeRef = useRef<HTMLDivElement>(null)
+
 
   return (
-    <PageWrapper>
-      <div className="min-h-screen crypto-bg text-white pt-32 pb-20 px-4 md:px-0">
-        {/* Particle animation */}
-        <div className="particles"></div>
+    <div className="min-h-screen bg-gradient-to-br from-[#13001A] to-[#290040] text-white">
+      <div className="container mx-auto px-4 py-32">
+        {!selectedNetwork ? (
+          // Network Selection View
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-purple-300 text-2xl mb-2">Choose Your</h2>
+              <h1 className="text-white text-6xl font-bold mb-8">USDT Network</h1>
 
-        {/* Circuit pattern overlay */}
-        <div className="circuit-pattern"></div>
+              {/* Display a generic USDT logo or remove if not needed */}
+             
+            </div>
 
-        <div className="container mx-auto relative z-10">
-          <div className="text-center mb-16">
-            <h1 className="scroll-trigger text-4xl md:text-7xl font-bold mb-6 text-white">
-              <span className="text-blue-400">Choose Your</span>
-              <br />
-              USDT
-            </h1>
-            <p className="scroll-trigger text-gray-300 text-lg md:text-xl mb-10 max-w-3xl mx-auto">
-              Select the blockchain network that best suits your needs for USDT transactions.
-            </p>
-
-            {/* Bitcoin animation */}
-            
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <CryptoCard
-              name="POL"
-              symbol="polygon"
-              color="purple"
-              icon={
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="#8247E5">
-                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-1.243 17.657L6.9 14.8l3.857-2.25 3.857 2.25-3.857 2.857zm0-5.714L6.9 9.086l3.857-2.25 3.857 2.25-3.857 2.857zm7.714 2.857l-3.857 2.857V14.8l3.857-2.25v2.25z" />
-                </svg>
-              }
-              description="Fast transactions with low fees on the Polygon network."
-              isExpanded={expandedCard === "polygon"}
-              onToggle={() => toggleCard("polygon")}
-              onSelect={navigateToConverter}
-            />
-
-            <CryptoCard
-              name="TRON"
-              symbol="TRC20"
-              color="teal"
-              icon={
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="#26A17B">
-                  <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 4a8 8 0 1 1 0 16 8 8 0 0 1 0-16zm-1.2 4.8v6.4h2.4v-6.4h-2.4z" />
-                </svg>
-              }
-              description="Efficient and cost-effective transactions on the TRON network."
-              isExpanded={expandedCard === "tron"}
-              onToggle={() => toggleCard("tron")}
-              onSelect={navigateToConverter}
-            />
-
-            <CryptoCard
-              name="ETH"
-              symbol="ERC20"
-              color="indigo"
-              icon={
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="#627EEA">
-                  <path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z" />
-                </svg>
-              }
-              description="The original USDT implementation on the Ethereum network."
-              isExpanded={expandedCard === "ethereum"}
-              onToggle={() => toggleCard("ethereum")}
-              onSelect={navigateToConverter}
-            />
-
-            <CryptoCard
-              name="BINANCE"
-              symbol="BEP20"
-              color="yellow"
-              icon={
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="48" height="48" fill="#F0B90B">
-                  <path d="M12 0L5.5 6.5 2.75 3.75 0 6.5l2.75 2.75L0 12l2.75 2.75L0 17.5l2.75 2.75L5.5 17.5 12 24l6.5-6.5 2.75 2.75 2.75-2.75-2.75-2.75L24 12l-2.75-2.75L24 6.5l-2.75-2.75L18.5 6.5 12 0zm0 4.37L17.63 10 12 15.63 6.37 10 12 4.37z" />
-                </svg>
-              }
-              description="Fast and low-cost transactions on the Binance Smart Chain."
-              isExpanded={expandedCard === "binance"}
-              onToggle={() => toggleCard("binance")}
-              onSelect={navigateToConverter}
-            />
-          </div>
-
-          <div className="mt-20 text-center">
-            <h2 className="text-2xl font-bold mb-8 text-white">How Flash USDT Works</h2>
-
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="scroll-trigger-left bg-blue-900 bg-opacity-30 rounded-lg p-8 backdrop-filter backdrop-blur-sm border border-blue-800">
-                <p className="text-gray-300 mb-6">
-                  We create Flash Crypto in large quantities with a vast supply. When you place an order, our team
-                  verifies the details and transfers your Flash USDT within 15 minutes. With 20 active employees, we
-                  ensure fast and reliable transactions.
-                </p>
-
-                <div className="space-y-6">
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-800 flex items-center justify-center mr-3 mt-0.5">
-                      <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-white">
-                        What if my wallet address is wrong or the transfer fails?
-                      </h3>
-                      <p className="text-gray-300 text-sm mt-1">
-                        We'll notify you via email within 30 minutes and refund your USDT.
-                      </p>
-                    </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> {/* Adjusted grid for better layout */}
+              {networks.map((network) => (
+                <div
+                  key={network.id}
+                  className="bg-[#1f1c2c] rounded-lg p-6 flex flex-col items-center cursor-pointer transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-lg hover:shadow-purple-500/30" // Enhanced styling
+                  onClick={() => handleNetworkSelect(network)}
+                  style={{ borderColor: network.color, borderWidth: '1px', borderStyle: 'solid' }} // Use network color for border
+                >
+                  {/* Use Image component for network logo */}
+                  <div className="w-20 h-20 mb-5 relative flex items-center justify-center">
+                     <Image
+                        src={network.logo}
+                        alt={`${network.name} Logo`}
+                        width={80} // Adjust size as needed
+                        height={80} // Adjust size as needed
+                        className="object-contain" // Prevents image distortion
+                     />
                   </div>
-
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-800 flex items-center justify-center mr-3 mt-0.5">
-                      <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-white">Our Mission & Vision</h3>
-                      <p className="text-gray-300 text-sm mt-1">
-                        We aim to make Flash USDT accessible to everyone, ensuring fast, secure, and hassle-free
-                        transactions. Our vision is to support users who struggle to buy Flash USDT by providing a
-                        trusted, efficient, and customer-friendly platform with instant transfers and 24/7 support.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 h-6 w-6 rounded-full bg-blue-800 flex items-center justify-center mr-3 mt-0.5">
-                      <div className="h-2 w-2 bg-blue-500 rounded-full"></div>
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-white">Why should I trust your platform?</h3>
-                      <p className="text-gray-300 text-sm mt-1">
-                        We have over 1,000,000 buyers and process 60,000 to 70,000 transactions daily, ensuring fast and
-                        reliable transfers.
-                      </p>
-                    </div>
+                  <div className="bg-white text-black font-semibold py-2 px-6 rounded-full w-full text-center text-sm"> {/* Adjusted padding/text size */}
+                    {network.name} ({network.symbol})
                   </div>
                 </div>
-              </div>
+              ))}
+            </div>
 
-              <div className="scroll-trigger-right relative">
-                <div className="network-animation h-80 w-full relative">
-                  {/* Shield icon */}
-                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      width="128"
-                      height="128"
-                      fill="rgba(59, 130, 246, 0.1)"
-                      className="pulse"
-                    >
-                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-                      <path d="M9 12l2 2 4-4" stroke="rgba(59, 130, 246, 0.5)" strokeWidth="1" fill="none" />
-                    </svg>
+             {/* Partners Section - Consider adding CSS animation for marquee */}
+             <div className="text-center mt-20">
+              <h3 className="text-pink-300 mb-4 text-lg font-semibold">● OUR TOP PARTNERS ●</h3>
+              {/* Simple static display or implement a marquee library */}
+              <div className="flex flex-wrap justify-center items-center gap-8 mt-8">
+                {images.map((image, index) => (
+                  <div className="h-12 w-32 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity" key={index}>
+                    <img src={image} alt={`Partner Logo ${index + 1}`} className="max-h-full max-w-full object-contain" />
                   </div>
-
-                  {/* Network nodes and lines - will be populated by JS */}
-                  {Array.from({ length: 20 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="network-node"
-                      style={{
-                        top: `${Math.random() * 100}%`,
-                        left: `${Math.random() * 100}%`,
-                        animation: `pulse ${Math.random() * 3 + 2}s infinite`,
-                      }}
-                    ></div>
-                  ))}
-                </div>
+                ))}
+                 {/* Coinbase Logo SVG */}
+                 <div className="h-12 w-32 flex items-center justify-center opacity-80 hover:opacity-100 transition-opacity">
+                   <svg viewBox="0 0 1024 1024" className="w-full h-full" fill="#0052FF">
+                     <path d="M512 0C229.12 0 0 229.12 0 512s229.12 512 512 512 512-229.12 512-512S794.88 0 512 0zm0 981.76C252.16 981.76 42.24 771.84 42.24 512S252.16 42.24 512 42.24 981.76 252.16 981.76 512 771.84 981.76 512 981.76z" />
+                     <path d="M512 193.28c-175.36 0-318.72 143.36-318.72 318.72S336.64 830.72 512 830.72 830.72 687.36 830.72 512 687.36 193.28 512 193.28zm0 595.2c-152.32 0-276.48-124.16-276.48-276.48S359.68 235.52 512 235.52 788.48 359.68 788.48 512 664.32 788.48 512 788.48z" />
+                   </svg>
+                 </div>
               </div>
             </div>
-          </div>
 
-          <div className="mt-20 text-center">
-            <div className="scroll-trigger inline-block bg-blue-900 bg-opacity-30 rounded-lg p-8 backdrop-filter backdrop-blur-sm border border-blue-800">
-              <h3 className="text-xl font-bold mb-4 text-white">Ready to get started?</h3>
-              <p className="text-gray-300 mb-6">Purchase Flash USDT now and experience fast, secure transactions.</p>
-              <Button className="bg-blue-600 hover:bg-blue-700 btn-hover-effect" onClick={navigateToConverter}>
-                Go to Converter
-              </Button>
-            </div>
           </div>
-        </div>
+        ) : (
+           // Form View
+          <div className="max-w-lg mx-auto bg-[#1f1c2c] rounded-lg p-8 relative shadow-xl shadow-purple-500/20">
+            <button
+              onClick={handleBack}
+              className="absolute top-4 left-4 text-gray-400 hover:text-white transition-colors text-sm flex items-center"
+              aria-label="Go back to network selection"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              Back
+            </button>
+
+            <div className="flex flex-col items-center mb-6">
+              {/* Use Image component for the selected network logo */}
+              <div className="w-16 h-16 mb-3 relative">
+                <Image
+                  src={selectedNetwork.logo}
+                  alt={`${selectedNetwork.name} Logo`}
+                  width={64}
+                  height={64}
+                  className="object-contain"
+                />
+              </div>
+              <h2 className="text-2xl font-semibold text-white mb-1">{selectedNetwork.name} ({selectedNetwork.symbol})</h2>
+              <p className="text-gray-300 text-center text-sm px-4">
+                To receive 200 Flash USDT, please transfer exactly <strong className="text-white font-bold">{amount} USDT</strong> ({selectedNetwork.symbol}) to the address below.
+              </p>
+            </div>
+
+
+             {/* IMPORTANT: Add hidden inputs for EmailJS if needed */}
+            <form onSubmit={handleSubmit} className="space-y-5" ref={form}>
+                {/* Add hidden inputs if your template relies on them and you are using sendForm */}
+                {/* <input type="hidden" name="selected_network_name" value={selectedNetwork.name} /> */}
+                {/* <input type="hidden" name="selected_network_symbol" value={selectedNetwork.symbol} /> */}
+                {/* <input type="hidden" name="recipient_wallet_address" value={selectedNetwork.walletAddress} /> */}
+                {/* <input type="hidden" name="transfer_amount" value={amount} /> */}
+
+              <div>
+                <label htmlFor="recipientAddress" className="block text-sm font-medium text-gray-300 mb-1">Our Wallet Address ({selectedNetwork.symbol})</label>
+                <div className="flex">
+                  <input
+                    id="recipientAddress"
+                    type="text"
+                    value={selectedNetwork.walletAddress}
+                    readOnly
+                    className="flex-grow bg-gray-700 border border-gray-600 text-gray-200 py-2.5 px-3 rounded-l-md text-sm focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500" // Improved styling
+                    aria-label="Recipient Wallet Address"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleCopyAddress}
+                    className="bg-purple-600 hover:bg-purple-700 text-white py-2.5 px-4 rounded-r-md font-medium text-sm transition-colors focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-800" // Improved styling
+                    aria-live="polite" // Announce changes for screen readers
+                  >
+                    {copied ? "Copied!" : "Copy"}
+                  </button>
+                </div>
+                 <p className="text-xs text-yellow-400 mt-1">⚠️ Ensure you select the correct network ({selectedNetwork.symbol}) before sending.</p>
+              </div>
+
+              <div>
+                <label htmlFor="transactionId" className="block text-sm font-medium text-gray-300 mb-1">Your Transaction ID / Hash</label>
+                <input
+                  id="transactionId"
+                  type="text"
+                  name="transaction_id" // Name should match EmailJS template variable if using sendForm
+                  placeholder="Paste the Transaction ID here"
+                  value={transactionId}
+                  onChange={(e) => setTransactionId(e.target.value)}
+                  required // Make required
+                  className="w-full bg-gray-700 border border-gray-600 text-gray-200 py-2.5 px-3 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 placeholder-gray-400" // Improved styling
+                />
+              </div>
+
+              <div>
+                <label htmlFor="walletAddress" className="block text-sm font-medium text-gray-300 mb-1">Your Wallet Address (to receive Flash USDT)</label>
+                <input
+                  id="walletAddress"
+                  type="text"
+                  name="user_wallet_address" // Name should match EmailJS template variable if using sendForm
+                  placeholder={`Enter your ${selectedNetwork.symbol} wallet address`}
+                  value={walletAddress}
+                  onChange={(e) => setWalletAddress(e.target.value)}
+                  required // Make required
+                  className="w-full bg-gray-700 border border-gray-600 text-gray-200 py-2.5 px-3 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 placeholder-gray-400" // Improved styling
+                />
+              </div>
+
+              <div>
+                <label htmlFor="amount" className="block text-sm font-medium text-gray-300 mb-1">Transfer Amount (USDT)</label>
+                <input
+                  id="amount"
+                  type="text" // Keep as text if you need exactly "20.00", otherwise use type="number" with step="0.01"
+                  name="transfer_amount" // Make sure this matches template variable if using sendForm
+                  value={amount}
+                  readOnly // Make it read-only as per the instruction text
+                  className="w-full bg-gray-800 border border-gray-600 text-gray-400 py-2.5 px-3 rounded-md text-sm focus:outline-none" // Read-only styling
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">Your Email (for confirmation)</label>
+                <input
+                  id="email"
+                  type="email"
+                  name="user_email" // Name should match EmailJS template variable if using sendForm
+                  placeholder="Enter your email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required // Make required
+                  className="w-full bg-gray-700 border border-gray-600 text-gray-200 py-2.5 px-3 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-purple-500 focus:border-purple-500 placeholder-gray-400" // Improved styling
+                />
+              </div>
+
+              <div className="flex justify-center pt-2">
+                <button
+                  type="submit"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white py-3 px-10 rounded-full font-semibold flex items-center justify-center transition-all duration-300 ease-in-out shadow-lg hover:shadow-purple-500/50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-800" // Enhanced button styling
+                >
+                  Submit Transfer Details
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-5 w-5 ml-2"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" // Changed to a right arrow
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
       </div>
-    </PageWrapper>
+      {/* Simple CSS Marquee for Partners (add this CSS to your global styles or a <style jsx>) */}
+      <style jsx global>{`
+        .marquee-container {
+          width: 100%;
+          overflow: hidden;
+          white-space: nowrap;
+          box-sizing: border-box;
+        }
+
+        .marquee {
+          display: inline-block;
+          padding-left: 100%;
+          animation: marquee 25s linear infinite; // Adjust duration as needed
+        }
+
+        .marquee-item {
+          display: inline-block;
+          margin-right: 40px; // Space between items
+          vertical-align: middle; // Align items nicely
+        }
+
+         .marquee:hover {
+           animation-play-state: paused // Optional: pause on hover
+         }
+
+
+        @keyframes marquee {
+          0%   { transform: translate(0, 0); }
+          100% { transform: translate(-100%, 0); }
+        }
+
+        // Optional: duplicate content for seamless loop without JS
+        // .marquee::after {
+        //   content: attr(data-content); // Requires setting data-content attribute on the marquee div
+        //   display: inline-block;
+        //   padding-left: 40px; // Match margin-right
+        // }
+      `}</style>
+    </div>
   )
 }
