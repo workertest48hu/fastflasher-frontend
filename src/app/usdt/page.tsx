@@ -22,22 +22,23 @@ export default function USDTPage() {
   const [amount, setAmount] = useState("20.00")
   const [email, setEmail] = useState("")
   const [copied, setCopied] = useState(false)
-
+  
   const networks: NetworkOption[] = [
+  
     {
+      id: "USDT (TRC20)",
+      name: "USDT (TRC20)",
+      symbol: "USDT (TRC20)",
+      color: "#26A17B",
+      logo: "/tot.png", // Path relative to the public folder
+      walletAddress: "TLRgHFbz3b9uDaMUNnpbWoGvQ66H2hW4L7",
+    },
+      {
       id: "polygon",
       name: "POL",
       symbol: "polygon",
       color: "#8247E5",
       logo: "/polygon.png", // Path relative to the public folder
-      walletAddress: "TLRgHFbz3b9uDaMUNnpbWoGvQ66H2hW4L7",
-    },
-    {
-      id: "tron",
-      name: "TRON",
-      symbol: "TRC20",
-      color: "#26A17B",
-      logo: "/tot.png", // Path relative to the public folder
       walletAddress: "TLRgHFbz3b9uDaMUNnpbWoGvQ66H2hW4L7",
     },
     {
