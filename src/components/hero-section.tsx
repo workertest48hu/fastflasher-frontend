@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { useEffect, useRef, useState } from "react"
 import { ArrowRight, Wallet } from "lucide-react"
 import upbit from "@/app/upbit.png"
+import Link from "next/link"
 
 
 const images = [
@@ -34,7 +35,7 @@ export default function HeroSection() {
   return (
     <section id="" className="pt-32 pb-20 px-4 md:px-0 relative overflow-hidden">
       {/* Abstract background */}
-    
+
 
       {/* Circuit pattern overlay */}
       <div className="circuit-pattern"></div>
@@ -47,7 +48,7 @@ export default function HeroSection() {
         </div>
 
         <h1 className="animate-fade-in text-4xl md:text-6xl font-bold text-gray-800 dark:text-white mb-6 max-w-4xl mx-auto">
-        Fast Flasher is a better way to build products
+          Fast Flasher is a better way to build products
         </h1>
 
         <p className="animate-fade-in text-gray-600 dark:text-gray-300 text-lg md:text-xl mb-10 max-w-3xl mx-auto">
@@ -56,16 +57,14 @@ export default function HeroSection() {
         </p>
 
         <div className="animate-fade-in flex flex-col sm:flex-row gap-4 justify-center">
-          <Button className="btn-primary inline-flex items-center btn-hover-effect">
-            Launch the app
-            <ArrowRight className="ml-2" size={16} />
-          </Button>
+  <Link href="/usdt">
+    <Button className="btn-primary inline-flex items-center btn-hover-effect">
+      Buy Now
+      <ArrowRight className="ml-2" size={16} />
+    </Button>
+  </Link>
+</div>
 
-          <Button variant="outline" className="btn-outline inline-flex items-center" onClick={toggleWallet}>
-            <Wallet className="mr-2" size={16} />
-            View Wallet
-          </Button>
-        </div>
 
         {/* Bitcoin Wallet Animation */}
         {walletFlipped && (
@@ -123,7 +122,7 @@ export default function HeroSection() {
       </div>
 
 
-     
+
     </section>
   )
 }
