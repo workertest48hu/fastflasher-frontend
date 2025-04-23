@@ -28,7 +28,7 @@ export default function USDTPage() {
     {
       id: "USDT (TRC20)",
       name: "USDT",
-      symbol: "(TRC20)",
+      symbol: "TRC20",
       color: "#26A17B",
       logo: "/tronnew.png", // Path relative to the public folder
       walletAddress: "TLRgHFbz3b9uDaMUNnpbWoGvQ66H2hW4L7",
