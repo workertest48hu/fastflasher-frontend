@@ -30,7 +30,7 @@ export default function USDTPage() {
       name: "USDT (TRC20)",
       symbol: "USDT (TRC20)",
       color: "#26A17B",
-      logo: "/tot.png", // Path relative to the public folder
+      logo: "/tronnew.png", // Path relative to the public folder
       walletAddress: "TLRgHFbz3b9uDaMUNnpbWoGvQ66H2hW4L7",
     },
       {
@@ -62,7 +62,7 @@ export default function USDTPage() {
       name: "XRP BINANCE",
       symbol: "BEP20",
       color: "#F0B90B",
-      logo: "/xrpbinance.png", // Path relative to the public folder
+      logo: "/bxrpnew.png", // Path relative to the public folder
       walletAddress: "TLRgHFbz3b9uDaMUNnpbWoGvQ66H2hW4L7",
     }
   ]
@@ -191,15 +191,16 @@ export default function USDTPage() {
                   style={{ borderColor: network.color, borderWidth: '1px', borderStyle: 'solid' }} // Use network color for border
                 >
                   {/* Use Image component for network logo */}
-                  <div className="w-20 h-20 mb-5 relative flex items-center justify-center">
-                     <Image
-                        src={network.logo}
-                        alt={`${network.name} Logo`}
-                        width={80} // Adjust size as needed
-                        height={80} // Adjust size as needed
-                        className="object-contain" // Prevents image distortion
-                     />
-                  </div>
+                 <div className="w-20 h-20 mb-5 relative flex items-center justify-center">
+   <Image
+      src={network.logo}
+      alt={`${network.name} Logo`}
+      width={80} // Adjust size as needed
+      height={80} // Adjust size as needed
+      className="object-contain rounded-full" // Makes the image circular
+   />
+</div>
+
                   <div className="bg-white text-black font-semibold py-2 px-6 rounded-full w-full text-center text-sm"> {/* Adjusted padding/text size */}
                     {network.name} ({network.symbol})
                   </div>
