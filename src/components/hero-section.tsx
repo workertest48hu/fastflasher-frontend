@@ -56,7 +56,8 @@ export default function HeroSection() {
           Payment System Powers the Next 1 Million DAOs World Wide!
         </p>
 
-        <div className="animate-fade-in flex flex-col sm:flex-row gap-4 justify-center">
+   <div className="animate-fade-in flex flex-col sm:flex-row gap-4 justify-center">
+          
   <Link href="/usdt">
     <Button className="btn-primary inline-flex items-center btn-hover-effect">
       Buy Now
@@ -64,7 +65,6 @@ export default function HeroSection() {
     </Button>
   </Link>
 </div>
-
 
         {/* Bitcoin Wallet Animation */}
         {walletFlipped && (
