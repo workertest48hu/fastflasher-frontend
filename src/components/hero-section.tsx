@@ -42,21 +42,19 @@ export default function HeroSection() {
 
       <div className="container mx-auto text-center relative z-10">
         <div className="animate-fade-in mb-8">
-          <div className="inline-flex items-center justify-center px-4 py-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 text-sm font-medium mb-6">
-            BUILD ON Fast Flasher LAYER 2
-          </div>
+         
         </div>
 
         <h1 className="animate-fade-in text-4xl md:text-6xl font-bold text-gray-800 dark:text-white mb-6 max-w-4xl mx-auto">
-          Fast Flasher is a better way to build products
+          Welcome to FastFlasher
         </h1>
 
         <p className="animate-fade-in text-gray-600 dark:text-gray-300 text-lg md:text-xl mb-10 max-w-3xl mx-auto">
-          DAO Managed by Fast Flasher DAO LLC Builds a Tokenized Layer 2 Native Restacking Integration, AA Wallets, World Class
-          Payment System Powers the Next 1 Million DAOs World Wide!
+          for everyone
         </p>
 
         <div className="animate-fade-in flex flex-col sm:flex-row gap-4 justify-center">
+          
   <Link href="/usdt">
     <Button className="btn-primary inline-flex items-center btn-hover-effect">
       Buy Now

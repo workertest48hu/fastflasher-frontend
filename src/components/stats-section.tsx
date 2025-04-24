@@ -5,27 +5,27 @@ export default function StatsSection() {
     {
       value: "2M+",
       numericValue: "2000000",
-      label: "Player wallets created",
-      description: "Gaining access to Fast Flasher ecosystem of games and digital assets",
+      label: "Trusted by People",
+      description: "",
     },
     {
       value: "Thousands",
       numericValue: "10000",
-      label: "Developers",
-      description: "Gets your games to market faster without the need for teams of blockchain engineers",
+      label: "Visited us",
+      description: "Daily transaction on our website",
     },
     {
-      value: "10x",
-      numericValue: "10",
-      label: "Speed to Launch",
+      value: "10-20",
+      numericValue: "10-20",
+      label: "Speed to Work",
       description:
-        "High transaction per second gasless mint, burn and transfer to launch your NFT collections & tokens",
+        "FLASH delivered within few minutes",
     },
     {
-      value: "96%",
-      numericValue: "96",
-      label: "Development Cost",
-      description: "Save time and money with Fast Flasher developer-first suite of SDKs and UI tools",
+      value: "100%",
+      numericValue: "100",
+      label: "tradable",
+      description: "TOP TRUST",
     },
   ]
 
