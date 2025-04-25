@@ -115,11 +115,11 @@ export default function FeaturesSection() {
           </Button>
         </div>
 
-        <div className="text-center mt-8">
+        {/* <div className="text-center mt-8">
           <Link href="/learn">
             <Button className="scroll-trigger btn-primary btn-hover-effect">Learn About Blockchain</Button>
           </Link>
-        </div>
+        </div> */}
       </div>
     </section>
   )

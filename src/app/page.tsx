@@ -24,7 +24,7 @@ export default function Home() {
         
         <StatsSection />
         
-        <RoadmapSection />
+        {/* <RoadmapSection /> */}
       
     </PageWrapper>
   )

@@ -153,7 +153,7 @@ export default function Navbar() {
               <div className="flex flex-shrink-0 items-center">
                 <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>
                   {/* Use next/image for optimized images */}
-                  <Image src={logo} alt="Fast Flasher logo" width={40} height={40} className="h-10 w-auto block"/>
+                  <Image src={logo} alt="Fast Flasher logo" width={40} height={40} className="h-10 w-auto block rounded-full"/>
                   {/* Brand name hidden on very small screens */}
                   <span className="text-xl font-bold text-white  sm:inline">Fast Flasher</span>
                 </Link>
@@ -168,8 +168,8 @@ export default function Navbar() {
                     <Link href="/usdt" className="nav-link">USDT</Link>
                     <Link href="/resale" className="nav-link">Resale</Link>
                     <Link href="/operator" className="nav-link">Operator</Link>
-                    <Link href="/converter" className="nav-link">Converter</Link>
-                    <Link href="#roadmap" className="nav-link">Roadmap</Link>
+                    {/* <Link href="/converter" className="nav-link">Converter</Link> */}
+                    {/* <Link href="#roadmap" className="nav-link">Roadmap</Link> */}
                  </nav>
               </div>
 
@@ -242,8 +242,8 @@ export default function Navbar() {
                     <Link href="/usdt" className="nav-link block" onClick={closeMobileMenu}>USDT</Link>
                     <Link href="/resale" className="nav-link block" onClick={closeMobileMenu}>Resale</Link>
                     <Link href="/operator" className="nav-link block" onClick={closeMobileMenu}>Operator</Link>
-                    <Link href="/converter" className="nav-link block" onClick={closeMobileMenu}>Converter</Link>
-                    <Link href="#roadmap" className="nav-link block" onClick={closeMobileMenu}>Roadmap</Link>
+                    {/* <Link href="/converter" className="nav-link block" onClick={closeMobileMenu}>Converter</Link> */}
+                    {/* <Link href="#roadmap" className="nav-link block" onClick={closeMobileMenu}>Roadmap</Link> */}
                  </div>
 
                 {/* Buttons section in mobile menu */}

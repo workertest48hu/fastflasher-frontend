@@ -41,27 +41,36 @@ export default function HeroSection() {
       <div className="circuit-pattern"></div>
 
       <div className="container mx-auto text-center relative z-10">
-        <div className="animate-fade-in mb-8">
-         
+        <div className="relative w-full flex justify-center mt-4 mb-8 opacity-80 very-slow-bounce">
+          <img
+            src="https://fastflasher.com/tronnew.png"
+            alt="fresh chain"
+            className="rounded-full w-44 lg:w-64 h-44 lg:h-64 shadow-2xl shadow-amber-50"
+          />
         </div>
 
+
+
+
+
+
         <h1 className="animate-fade-in text-4xl md:text-6xl font-bold text-gray-800 dark:text-white mb-6 max-w-4xl mx-auto">
-          Welcome to FastFlasher
+          Welcome to FastFlasher for everyone
         </h1>
 
         <p className="animate-fade-in text-gray-600 dark:text-gray-300 text-lg md:text-xl mb-10 max-w-3xl mx-auto">
-          for everyone
+          We guarantee you to transfer your Flash USDT within 15 minutes
         </p>
 
-   <div className="animate-fade-in flex flex-col sm:flex-row gap-4 justify-center">
-          
-  <Link href="/usdt">
-    <Button className="btn-primary inline-flex items-center btn-hover-effect">
-      Buy Now
-      <ArrowRight className="ml-2" size={16} />
-    </Button>
-  </Link>
-</div>
+        <div className="animate-fade-in flex flex-col sm:flex-row gap-4 justify-center">
+
+          <Link href="/usdt">
+            <Button className="btn-primary inline-flex items-center btn-hover-effect">
+              Buy Now
+              <ArrowRight className="ml-2" size={16} />
+            </Button>
+          </Link>
+        </div>
 
         {/* Bitcoin Wallet Animation */}
         {walletFlipped && (

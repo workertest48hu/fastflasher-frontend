@@ -1304,3 +1304,17 @@ body {
 
 /* Ensure main content is on top */
 /* The component already sets relative z-10 on the content wrapper, which is good */
+
+
+@keyframes verySlowBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.very-slow-bounce {
+  animation: verySlowBounce 6s ease-in-out infinite;
+}
