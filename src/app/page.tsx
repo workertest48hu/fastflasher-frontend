@@ -16,68 +16,17 @@ export default function Home() {
 
   return (
     <PageWrapper>
-      <div className="min-h-screen ">
-      <div className="abstract-bg">
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-
-
-
-      </div>
+     
         <HeroSection />
-        <div className="abstract-bg">
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-
-
-
-      </div>
+    
         <AboutSection />
-        <div className="abstract-bg">
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-
-
-
-      </div>
+     
         <FeaturesSection />
-        <div className="abstract-bg">
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-
-
-
-      </div>
+        
         <StatsSection />
-        <div className="abstract-bg">
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-
-
-
-      </div>
+        
         <RoadmapSection />
-      </div>
+      
     </PageWrapper>
   )
 }

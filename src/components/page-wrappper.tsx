@@ -1,9 +1,10 @@
 "use client"
 
 import type React from "react"
-
 import { useEffect, useRef } from "react"
-import { useTheme } from "@/context/theme-context"
+// Assuming useTheme is still needed for other potential theme-related logic
+// If not, you can remove it.
+// import { useTheme } from "@/context/theme-context"
 import { initScrollAnimations } from "@/lib/scroll-animation"
 
 interface PageWrapperProps {
@@ -11,75 +12,79 @@ interface PageWrapperProps {
   className?: string
 }
 
+const LOGO_URL = "https://fastflasher.com/tronnew.png"; // Define logo URL
+const NUM_LOGO_CIRCLES = 10; // How many floating logos
+
 export default function PageWrapper({ children, className = "" }: PageWrapperProps) {
   const wrapperRef = useRef<HTMLDivElement>(null)
-  const { theme } = useTheme()
+  // const { theme } = useTheme(); // Keep if needed elsewhere
 
   useEffect(() => {
-    // Create animated background elements
     const wrapper = wrapperRef.current
     if (!wrapper) return
 
-    // Create circuit pattern
+    const createdElements: HTMLElement[] = []; // To store refs for cleanup
+
+    // --- Keep Circuit Pattern Creation ---
     const circuit = document.createElement("div")
     circuit.className = "circuit-pattern"
     wrapper.appendChild(circuit)
+    createdElements.push(circuit)
 
-    // Create particles
-    const particles = document.createElement("div")
-    particles.className = "particles"
-    wrapper.appendChild(particles)
+    // --- Keep Particles Creation ---
+    const particlesContainer = document.createElement("div")
+    particlesContainer.className = "particles"
+    wrapper.appendChild(particlesContainer)
+    createdElements.push(particlesContainer) // Store container for potential removal if needed
 
     for (let i = 0; i < 30; i++) {
       const particle = document.createElement("div")
       particle.className = "particle"
-
-      // Random position
       particle.style.left = `${Math.random() * 100}%`
       particle.style.top = `${Math.random() * 100}%`
-
-      // Random size
       const size = Math.random() * 3 + 1
       particle.style.width = `${size}px`
       particle.style.height = `${size}px`
-
-      // Random opacity
       particle.style.opacity = `${Math.random() * 0.5 + 0.3}`
-
-      // Random animation
       particle.style.animation = `floating ${Math.random() * 10 + 5}s linear infinite`
-
-      particles.appendChild(particle)
+      particlesContainer.appendChild(particle)
+      // Individual particles don't need direct cleanup if container is removed
     }
 
-    // Create abstract circles
-    for (let i = 0; i < 3; i++) {
+    // --- Create Floating Logo Circles ---
+    for (let i = 0; i < NUM_LOGO_CIRCLES; i++) {
       const circle = document.createElement("div")
-      circle.className = "abstract-circle"
+      circle.className = "floating-logo-circle"
 
       // Random position
-      circle.style.top = `${Math.random() * 100}%`
       circle.style.left = `${Math.random() * 100}%`
+      circle.style.top = `${Math.random() * 100}%`
 
       // Random size
-      const size = Math.random() * 300 + 100
+      const size = Math.random() * 50 + 30 // Size between 30px and 80px
       circle.style.width = `${size}px`
       circle.style.height = `${size}px`
 
-      // Random color - blue theme
-      const hue = Math.random() * 60 + 220 // Blue to purple range
-      circle.style.background = `hsla(${hue}, 70%, 50%, 0.05)`
+      // Random animation properties
+      const duration = Math.random() * 15 + 10 // Duration 10s to 25s
+      const delay = Math.random() * 5        // Delay up to 5s
+      // Use alternate direction for smoother back-and-forth
+      circle.style.animation = `floatingLogo ${duration}s linear ${delay}s infinite alternate`
 
-      // Random animation delay
-      circle.style.animationDelay = `${Math.random() * 5}s`
+      // Create and append the logo image
+      const img = document.createElement("img")
+      img.src = LOGO_URL
+      img.alt = "Floating Logo" // Add alt text for accessibility
+      circle.appendChild(img)
 
       wrapper.appendChild(circle)
+      createdElements.push(circle); // Store for cleanup
     }
 
-    // Initialize scroll animations
+    // --- Keep Scroll Animations Initialization ---
     initScrollAnimations()
 
-    // Add background colors to sections
+    // --- Keep Section Background Logic ---
     const sections = document.querySelectorAll("section")
     const bgClasses = [
       "section-bg-blue",
@@ -90,43 +95,47 @@ export default function PageWrapper({ children, className = "" }: PageWrapperPro
     ]
 
     sections.forEach((section, index) => {
-      if (!section.classList.contains("section-bg")) {
-        section.classList.add("section-bg")
+        // Check if it already has section-bg to avoid adding multiple times if component re-renders unexpectedly
+        if (!section.classList.contains("section-bg")) {
+            section.classList.add("section-bg")
+            const bgClass = bgClasses[index % bgClasses.length]
+            section.classList.add(bgClass)
 
-        // Add alternating background colors
-        const bgClass = bgClasses[index % bgClasses.length]
-        section.classList.add(bgClass)
+            // Check if gradient/overlay already exist before adding
+            if (!section.querySelector('.section-bg-gradient')) {
+                const gradient = document.createElement("div")
+                gradient.className = "section-bg-gradient"
+                section.appendChild(gradient)
+            }
 
-        // Add gradient overlay
-        const gradient = document.createElement("div")
-        gradient.className = "section-bg-gradient"
-        section.appendChild(gradient)
-
-        // Add overlay
-        const overlay = document.createElement("div")
-        overlay.className = "section-bg-overlay"
-        section.appendChild(overlay)
-      }
+            if (!section.querySelector('.section-bg-overlay')) {
+                const overlay = document.createElement("div")
+                overlay.className = "section-bg-overlay"
+                section.appendChild(overlay)
+            }
+        }
     })
 
+
+    // --- Cleanup Function ---
     return () => {
-      // Cleanup
-      if (circuit && circuit.parentNode) {
-        circuit.parentNode.removeChild(circuit)
-      }
-      if (particles && particles.parentNode) {
-        particles.parentNode.removeChild(particles)
-      }
+      createdElements.forEach(el => {
+        if (el && el.parentNode) {
+          el.parentNode.removeChild(el)
+        }
+      })
     }
-  }, [])
+  }, []) // Empty dependency array ensures this runs only once on mount
 
   return (
-    <div ref={wrapperRef} className={`relative min-h-screen ${className}`}>
-      <div className="abstract-bg">
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-        <div className="abstract-circle"></div>
-      </div>
+    // The main wrapper div
+    <div ref={wrapperRef} className={`page-wrapper relative min-h-screen overflow-hidden ${className}`}>
+      {/*
+        Removed static abstract-bg and abstract-circle divs.
+        The circuit, particles, and floating logos are added dynamically by useEffect.
+      */}
+
+      {/* Your page content, positioned above the background elements */}
       <div className="relative z-10">{children}</div>
     </div>
   )

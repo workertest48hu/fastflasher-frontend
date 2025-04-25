@@ -5,6 +5,7 @@ import type React from "react"
 import { useState, useRef } from "react"
 import * as emailjs from "@emailjs/browser"
 import Image from 'next/image'; // Import Image component if using Next.js for optimization
+import PageWrapper from "@/components/page-wrappper";
 
 interface NetworkOption {
   id: string
@@ -169,7 +170,9 @@ export default function USDTPage() {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#13001A] to-[#290040] text-white">
+    <PageWrapper>
+
+    <div className="min-h-screen  text-white">
       <div className="container mx-auto px-4 py-32">
         {!selectedNetwork ? (
           // Network Selection View
@@ -409,5 +412,7 @@ export default function USDTPage() {
         // }
       `}</style>
     </div>
+    </PageWrapper>
+
   )
 }

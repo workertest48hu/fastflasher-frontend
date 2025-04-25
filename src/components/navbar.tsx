@@ -155,7 +155,7 @@ export default function Navbar() {
                   {/* Use next/image for optimized images */}
                   <Image src={logo} alt="Fast Flasher logo" width={40} height={40} className="h-10 w-auto block"/>
                   {/* Brand name hidden on very small screens */}
-                  <span className="text-xl font-bold text-gray-800 dark:text-white hidden sm:inline">Fast Flasher</span>
+                  <span className="text-xl font-bold text-white  sm:inline">Fast Flasher</span>
                 </Link>
               </div>
 
