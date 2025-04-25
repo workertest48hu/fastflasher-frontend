@@ -13,7 +13,7 @@ export default function Home() {
     initAnimations()
   }, [])
 
-  return (
+return (
     <PageWrapper>
      
         <HeroSection />
