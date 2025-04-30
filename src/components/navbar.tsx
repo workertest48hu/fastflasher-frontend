@@ -145,22 +145,22 @@ export default function Navbar() {
         )}
       >
         {/* Container: Constrains content width and adds padding */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="container w-full mx-auto px-4 sm:px-6 lg:px-8">
             {/* Flex Wrapper: Aligns Logo, Nav, and Buttons horizontally */}
-            <div className="relative flex h-16 items-center justify-between">
+            <div className="relative flex h-16 items-center  w-full justify-between">
 
               {/* ===== Left Side: Logo ===== */}
               <div className="flex flex-shrink-0 items-center">
                 <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>
                   {/* Use next/image for optimized images */}
-                  <Image src={logo} alt="Fast Flasher logo" width={40} height={40} className="h-10 w-auto block rounded-full"/>
+                  <Image src={logo} alt="Fast Flasher logo" width={40} height={40} className="h-5 w-auto block rounded-full opacity-95 "/>
                   {/* Brand name hidden on very small screens */}
                   <span className="text-xl font-bold text-white  sm:inline">Fast Flasher</span>
                 </Link>
               </div>
 
               {/* ===== Center: Desktop Navigation (Hidden below lg breakpoint) ===== */}
-              <div className="hidden lg:block sm:ml-6">
+              <div className="hidden lg:block sm:ml-6 justify-evenly">
                  <nav className="flex space-x-5"> {/* Adjust space-x-* as needed */}
                     <Link href="#how-it-works" className="nav-link">How it works</Link>
                     <Link href="#features" className="nav-link">Features</Link>
@@ -177,19 +177,7 @@ export default function Navbar() {
              {/* ===== Right Side: Desktop Buttons (Hidden below lg) & Mobile Menu Button ===== */}
               <div className="flex items-center">
                  {/* --- Desktop Action Buttons (Hidden below lg breakpoint) --- */}
-                <div className="hidden lg:flex lg:items-center lg:space-x-3 ml-4"> {/* Adjust space-x-* and ml-* as needed */}
-                    <Button
-                      variant="outline"
-                      className="rounded-md flex items-center gap-2 btn-hover-effect flex-shrink-0" // flex-shrink-0 prevents shrinking
-                      onClick={handleWalletToggle}
-                    >
-                      <Wallet size={16} />
-                      <span>Wallet</span>
-                    </Button>
-                    <Button className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-md btn-hover-effect flex-shrink-0">
-                      Start Building
-                    </Button>
-                </div>
+              
 
                  {/* --- Mobile Menu Button (Only visible below lg breakpoint) --- */}
                 <div className="flex items-center lg:hidden ml-2">
@@ -247,24 +235,7 @@ export default function Navbar() {
                  </div>
 
                 {/* Buttons section in mobile menu */}
-                <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <div className="flex flex-col space-y-3">
-                        <Button
-                          variant="outline"
-                          className="w-full justify-center rounded-md flex items-center gap-2"
-                          onClick={() => { handleWalletToggle(); /* closeMobileMenu called within handleWalletToggle */ }}
-                        >
-                          <Wallet size={16} />
-                          <span>Wallet</span>
-                        </Button>
-                        <Button
-                            className="w-full justify-center bg-indigo-600 hover:bg-indigo-700 text-white rounded-md"
-                            onClick={closeMobileMenu} // Example action: just closes menu
-                        >
-                          Start Building
-                        </Button>
-                    </div>
-                </div>
+                
             </div>
         </div>
       </header>
