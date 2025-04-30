@@ -8,6 +8,7 @@ import PageWrapper from "@/components/page-wrappper"
 import { useEffect } from "react"
 import { initAnimations } from "@/lib/animation"
 
+
 export default function Home() {
   useEffect(() => {
     initAnimations()
