@@ -1318,3 +1318,17 @@ body {
 .very-slow-bounce {
   animation: verySlowBounce 6s ease-in-out infinite;
 }
+
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+.fade-in-opacity {
+  animation: fadeInOpacity 2s ease-in-out forwards;
+}

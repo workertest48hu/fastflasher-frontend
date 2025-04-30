@@ -41,11 +41,11 @@ export default function HeroSection() {
       <div className="circuit-pattern"></div>
 
       <div className="container mx-auto text-center relative z-10">
-        <div className="relative w-full flex justify-center mt-4 mb-8 opacity-80 very-slow-bounce">
+        <div className="relative w-full flex justify-center mt-4 mb-8 very-slow-bounce">
           <img
             src="https://fastflasher.com/tronnew.png"
             alt="fresh chain"
-            className="rounded-full w-44 lg:w-64 h-44 lg:h-64 shadow-2xl shadow-amber-50"
+            className="rounded-full w-44 lg:w-64 h-44 lg:h-64 shadow-2xl shadow-amber-50 light-to-dark"
           />
         </div>
 

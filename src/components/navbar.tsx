@@ -153,7 +153,7 @@ export default function Navbar() {
               <div className="flex flex-shrink-0 items-center">
                 <Link href="/" className="flex items-center gap-2" onClick={closeMobileMenu}>
                   {/* Use next/image for optimized images */}
-                  <Image src={logo} alt="Fast Flasher logo" width={40} height={40} className="h-5 w-auto block rounded-full opacity-95 "/>
+                  <Image src={logo} alt="Fast Flasher logo" width={40} height={40} className="h-5 w-auto block rounded-full  "/>
                   {/* Brand name hidden on very small screens */}
                   <span className="text-xl font-bold text-white  sm:inline">Fast Flasher</span>
                 </Link>
