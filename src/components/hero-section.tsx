@@ -106,10 +106,10 @@ export default function HeroSection() {
 
 
 
-        <div className="mt-20">
-          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300 mb-6">
-            Trusted by leading blockchain projects
-          </h3>
+        <div id="part" className="mt-20">
+          <h1 className="text-xl font-medium text-gray-700 dark:text-gray-300 mb-6">
+            OUR TOP PARTNERS
+          </h1>
 
         </div>
       </div>

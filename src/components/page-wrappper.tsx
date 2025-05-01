@@ -45,41 +45,44 @@ export default function PageWrapper({ children, className = "" }: PageWrapperPro
       const size = Math.random() * 3 + 1
       particle.style.width = `${size}px`
       particle.style.height = `${size}px`
-      particle.style.opacity = `${Math.random() * 0.5 + 0.3}`
+      particle.style.opacity = `0.3`
       particle.style.animation = `floating ${Math.random() * 10 + 5}s linear infinite`
       particlesContainer.appendChild(particle)
       // Individual particles don't need direct cleanup if container is removed
     }
 
     // --- Create Floating Logo Circles ---
-    for (let i = 0; i < NUM_LOGO_CIRCLES; i++) {
-      const circle = document.createElement("div")
-      circle.className = "floating-logo-circle"
+   // --- Create Floating Logo Circles ---
+for (let i = 0; i < NUM_LOGO_CIRCLES; i++) {
+  const circle = document.createElement("div")
+  circle.className = "floating-logo-circle"
 
-      // Random position
-      circle.style.left = `${Math.random() * 100}%`
-      circle.style.top = `${Math.random() * 100}%`
+  // Random position
+  circle.style.left = `${Math.random() * 100}%`
+  circle.style.top = `${Math.random() * 100}%`
 
-      // Random size
-      const size = Math.random() * 50 + 30 // Size between 30px and 80px
-      circle.style.width = `${size}px`
-      circle.style.height = `${size}px`
+  // Random size
+  const size = Math.random() * 50 + 30 // Size between 30px and 80px
+  circle.style.width = `${size}px`
+  circle.style.height = `${size}px`
 
-      // Random animation properties
-      const duration = Math.random() * 15 + 10 // Duration 10s to 25s
-      const delay = Math.random() * 5        // Delay up to 5s
-      // Use alternate direction for smoother back-and-forth
-      circle.style.animation = `floatingLogo ${duration}s linear ${delay}s infinite alternate`
+  // Random animation properties
+  const duration = Math.random() * 15 + 10 // Duration 10s to 25s
+  const delay = 0 // No delay — start immediately
+  circle.style.opacity = "0.7" // Consistent opacity
+  circle.style.animation = `floatingLogo ${duration}s linear ${delay}s infinite alternate`
+  circle.style.willChange = "transform" // Optional for smoother animations
 
-      // Create and append the logo image
-      const img = document.createElement("img")
-      img.src = LOGO_URL
-      img.alt = "Floating Logo" // Add alt text for accessibility
-      circle.appendChild(img)
+  // Create and append the logo image
+  const img = document.createElement("img")
+  img.src = LOGO_URL
+  img.alt = "Floating Logo"
+  circle.appendChild(img)
 
-      wrapper.appendChild(circle)
-      createdElements.push(circle); // Store for cleanup
-    }
+  wrapper.appendChild(circle)
+  createdElements.push(circle)
+}
+
 
     // --- Keep Scroll Animations Initialization ---
     initScrollAnimations()

@@ -167,7 +167,6 @@ export default function Navbar() {
                     <Link href="#partners" className="nav-link">Partners</Link>
                     <Link href="/usdt" className="nav-link">USDT</Link>
                     <Link href="/resale" className="nav-link">Resale</Link>
-                    <Link href="/operator" className="nav-link">Operator</Link>
                     {/* <Link href="/converter" className="nav-link">Converter</Link> */}
                     {/* <Link href="#roadmap" className="nav-link">Roadmap</Link> */}
                  </nav>
@@ -229,7 +228,6 @@ export default function Navbar() {
                     <Link href="#partners" className="nav-link block" onClick={closeMobileMenu}>Partners</Link>
                     <Link href="/usdt" className="nav-link block" onClick={closeMobileMenu}>USDT</Link>
                     <Link href="/resale" className="nav-link block" onClick={closeMobileMenu}>Resale</Link>
-                    <Link href="/operator" className="nav-link block" onClick={closeMobileMenu}>Operator</Link>
                     {/* <Link href="/converter" className="nav-link block" onClick={closeMobileMenu}>Converter</Link> */}
                     {/* <Link href="#roadmap" className="nav-link block" onClick={closeMobileMenu}>Roadmap</Link> */}
                  </div>
