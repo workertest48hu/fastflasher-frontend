@@ -47,7 +47,7 @@ export default function Footer() {
           <div>
             <ul className="space-y-2">
             <li>
-                <Link href="#features" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="#stats" className="text-gray-300 hover:text-white transition-colors">
                 How it works
                 </Link>
               </li>
