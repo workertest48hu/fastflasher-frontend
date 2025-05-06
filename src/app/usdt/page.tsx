@@ -284,7 +284,7 @@ export default function USDTPage() {
                 </div>
                 <h2 className="text-2xl font-semibold text-white mb-1">{selectedNetwork.name} ({selectedNetwork.symbol})</h2>
                 <p className="text-gray-300 text-center text-sm px-4">
-                  To receive 200 Flash USDT, please transfer exactly <strong className="text-white font-bold">{amount} USDT</strong> ({selectedNetwork.symbol}) to the address below.
+                  To receive Flash USDT, please transfer exactly <strong className="text-white font-bold">{amount} USDT</strong> ({selectedNetwork.symbol}) to the address below.
                 </p>
               </div>
 
