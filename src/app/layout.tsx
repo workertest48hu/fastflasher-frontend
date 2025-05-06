@@ -13,7 +13,6 @@ export const metadata: Metadata = {
   description: "Fast Flasher is a better way to build blockchain products with Layer 2 technology",
 }
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
