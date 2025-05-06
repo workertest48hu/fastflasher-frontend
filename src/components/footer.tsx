@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Instagram, Facebook,Twitter } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -18,28 +19,34 @@ export default function Footer() {
             Here you get superfast speed and easy convenience in the world of Flash USDT. Buy and sell quickly now, anytime, anywhere, because we understand that your time is the most valuable. Come, experience the future of Flash USDT exchange!"
             </p>
             <div className="text-lg font-semibold mb-4 text-white">Join the community</div>
-            <div className="flex space-x-4">
+            <div className="flex flex-row gap-5 space-x-4">
              
              
               <Link
                 href="https://www.instagram.com/"
                 className="h-10 w-10 bg-blue-800 rounded-md flex items-center justify-center text-gray-300 hover:bg-blue-600 hover:text-white transition-colors"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                </svg>
+             <Instagram className="h-5 w-5" />
+             <span className="sr-only">Instagram</span>
+              </Link>
+
+             
+             
+              <Link
+                href="https://x.com/"
+                className="h-10 w-10 bg-blue-800 rounded-md flex items-center justify-center text-gray-300 hover:bg-blue-600 hover:text-white transition-colors"
+              >
+             <Twitter className="h-5 w-5" />
+             <span className="sr-only">Twitter</span>
+              </Link>
+             
+             
+              <Link
+                href="https://www.facebook.com/"
+                className="h-10 w-10 bg-blue-800 rounded-md flex items-center justify-center text-gray-300 hover:bg-blue-600 hover:text-white transition-colors"
+              >
+             <Facebook className="h-5 w-5" />
+             <span className="sr-only">Facebook</span>
               </Link>
             </div>
           </div>

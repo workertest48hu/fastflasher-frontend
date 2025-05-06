@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import * as emailjs from "@emailjs/browser"
 import Image from 'next/image'; // Import Image component if using Next.js for optimization
 import PageWrapper from "@/components/page-wrappper";
@@ -24,6 +24,8 @@ export default function USDTPage() {
   const [amount, setAmount] = useState("")
   const [email, setEmail] = useState("")
   const [copied, setCopied] = useState(false)
+  const [modal, setmodal] = useState(false);
+
 
   const networks: NetworkOption[] = [
 
@@ -148,6 +150,7 @@ export default function USDTPage() {
       .then(
         (result) => {
           console.log('SUCCESS!', result.status, result.text);
+          setmodal(true);
           setTimeout(() => {
             toast('Submission successful! We will process your request.');
           }, 3000);
@@ -156,14 +159,22 @@ export default function USDTPage() {
           setWalletAddress('');
           setEmail('');
           setAmount('');
+
         },
         (error) => {
           console.log('FAILED...', error.text);
           alert(`Submission failed: ${error.text}. Please try again.`);
+
         },
+
       );
 
+
+    setTimeout(() => {
+      setmodal(false);
+    }, 3000);
   };
+
 
   const handleBack = () => {
     setSelectedNetwork(null)
@@ -180,13 +191,12 @@ export default function USDTPage() {
   ];
 
 
-  const marqueeRef = useRef<HTMLDivElement>(null)
 
 
   return (
     <PageWrapper>
 
-      <div className="min-h-screen  text-white">
+      <div className="min-h-screen relative  text-white">
         <div className="container mx-auto px-4 py-32">
           <ToastContainer />
           {!selectedNetwork ? (
@@ -391,8 +401,45 @@ export default function USDTPage() {
             </div>
           )}
         </div>
+        {modal ? (
+
+          <div className="absolute z-30 h-4/5 flex items-center justify-center  px-4 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+
+            <div className="bg-[#1b263b] text-white rounded-2xl p-8 shadow-lg max-w-md w-full animate-fade-in">
+              <div className="flex flex-col items-center justify-center space-y-4">
+                <img src="https://media.giphy.com/media/111ebonMs90YLu/giphy.gif" alt="Success" className="w-16 h-16" />
+
+                <h2 className="text-2xl font-semibold text-center">
+                  Thank you for buying Flash USDT for FastFlasher!
+                </h2>
+                <div className="text-center text-sm text-gray-300 leading-relaxed">
+                  Your Flash USDT transfer will be completed to your provided wallet within 15 minutes.
+                  <br /><br />
+                  We will update you via your provided email in case of any issues. If there are any errors,
+                  we'll contact you through your given email.
+                  <br /><br />
+                  Thank you for choosing FastFlasher!
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
         {/* Simple CSS Marquee for Partners (add this CSS to your global styles or a <style jsx>) */}
         <style jsx global>{`
+
+        @keyframes fade-in {  
+  from {
+    opacity: 1;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.5);
+  }
+}
+.animate-fade-in {
+  animation: fade-in 2.6s ease-out;
+}
         .marquee-container {
           width: 100%;
           overflow: hidden;
@@ -429,6 +476,9 @@ export default function USDTPage() {
         //   padding-left: 40px; // Match margin-right
         // }
       `}</style>
+
+
+
       </div>
     </PageWrapper>
 
