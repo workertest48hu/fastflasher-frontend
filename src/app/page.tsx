@@ -13,6 +13,7 @@ export default function Home() {
   useEffect(() => {
     initAnimations()
   }, [])
+  
 return (
     <PageWrapper>
         <HeroSection />
