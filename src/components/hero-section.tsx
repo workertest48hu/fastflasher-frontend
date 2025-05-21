@@ -33,15 +33,15 @@ export default function HeroSection() {
   }
 
   return (
-    <section id="" className="pt-32 pb-20 px-4 md:px-0 relative overflow-hidden">
+    <section id="how-it-works" className="pt-12 pb-20 px-4 md:px-0 relative overflow-hidden">
       {/* Abstract background */}
 
 
       {/* Circuit pattern overlay */}
       <div className="circuit-pattern"></div>
 
-      <div className="container mx-auto text-center relative z-10">
-        <div className="relative w-full flex justify-center mt-4 mb-8 very-slow-bounce">
+      <div  className="container mx-auto text-center relative z-10">
+        <div className="relative w-full flex justify-center  mb-3 very-slow-bounce">
           <img
             src="https://fastflasher.com/tronnew.png"
             alt="fresh chain"

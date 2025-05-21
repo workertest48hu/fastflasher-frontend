@@ -81,17 +81,17 @@ export default function Footer() {
           <div>
             <ul className="space-y-2">
               <li>
-                <Link href="#stats" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/#how-it-works" className="text-gray-300 hover:text-white transition-colors">
                   How it works
                 </Link>
               </li>
               <li>
-                <Link href="#features" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/#features" className="text-gray-300 hover:text-white transition-colors">
                   Features
                 </Link>
               </li>
               <li>
-                <Link href="#part" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/#part" className="text-gray-300 hover:text-white transition-colors">
                   Partners
                 </Link>
               </li>
@@ -106,7 +106,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#stats" className="text-gray-300 hover:text-white transition-colors">
+                <Link href="/#stats" className="text-gray-300 hover:text-white transition-colors">
                   Roadmap
                 </Link>
               </li>

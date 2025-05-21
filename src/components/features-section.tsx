@@ -4,37 +4,30 @@ import FeatureCard from "@/components/feature-card"
 
 export default function FeaturesSection() {
 
-  const features = [
-    {
-      // title: "Low Fees, Scalability",
-      title:
-        "Our infrastructure is optimized to execute Flash USDT buying and selling orders instantly, without any delays.",
-    },
-    {
-      // title: "Interoperability",
-      title:
-        "Upon purchase, Flash USDT is immediately deposited within 15 to 30 min. into your wallet.",
-    },
-    {
-      title: "Flash USDT expiry 130 to 150 days.",
-      // description: "Our routing system helps future-proof dApps by monitoring the conditions of the underlying chain.",
-    },
-    {
-      title: "You can resell your Flash back to us.",
-      // description:
-      //   "Our Reactive Smart Contracts have self-paying wallets, which can monitor, move, process, and sync data between blockchains without external payments.",
-    },
-    {
-      title: "You can transfer our Flash to any Trust Wallet and other decentralize exchange.t",
-      // description:
-      //   "Using WASM, we allow developers to create dApps using familiar languages like JavaScript, Python, Rust",
-    },
-    {
-      title: "You can trade with our Flash USDT to any wallet, wow exchange, that's it, you can't do P2P in any way, it can't do P2P.",
-      // description:
-      //   "Gas Fee Abstraction removes the complexity of paying fees across multiple chains. No need for users to hold L1 or L2 native tokens to use the dApp.",
-    },
-  ]
+const features = [
+  {
+    title:
+      "You can trade with our Flash USDT to any wallet, any exchange. That's it — P2P trading is not supported in any way.",
+  },
+  {
+    title:
+      "Upon purchase, Flash USDT is deposited within 15 to 30 minutes into your wallet.",
+  },
+  {
+    title: "Validity – Lifetime (No Expiry).",
+  },
+  {
+    title: "You can resell your Flash USDT back to us.",
+  },
+  {
+    title:
+      "You can transfer our Flash USDT to any Trust Wallet and other decentralized exchanges (100% trusted).",
+  },
+  {
+    title:
+      "Our infrastructure is optimized to execute Flash USDT buying and selling orders instantly, without any delays.",
+  },
+];
 
   
 

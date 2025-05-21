@@ -14,9 +14,6 @@ type FlashCurrency = 'FUSDT' | 'FETH' | 'FXRP' | 'FMATIC';
 
 const originalCurrencyDefs: { value: OriginalCurrency; label: string }[] = [
   { value: "USDT", label: "USDT" },
-  { value: "BTC", label: "BTC" },
-  { value: "ETH", label: "ETH" },
-  { value: "OXH", label: "OXH" },
 ];
 
 const flashCurrencyDefs: { value: FlashCurrency; label: string }[] = [
@@ -27,13 +24,6 @@ const flashCurrencyDefs: { value: FlashCurrency; label: string }[] = [
 ];
 
 // Mapping for specific images provided for popular conversions
-const popularConversionImageMap: Partial<Record<Currency, string>> = {
-    'BTC': "/gold.webp",
-    'ETH': "/ethereum.png",
-    'USDT': "/tronnew.png",
-    'FXRP': "/bxrpnew.png",
-    'FMATIC': "/polygon.png",
-};
 
 
 export default function ConverterPage() {
@@ -120,9 +110,9 @@ export default function ConverterPage() {
       const result = Number.parseFloat(fromAmount) * rate
       setToAmount(result.toFixed(8))
     } else if (fromAmount === "") {
-        setToAmount("")
+      setToAmount("")
     } else {
-        setToAmount("0")
+      setToAmount("0")
     }
   }, [fromAmount, fromCurrency, toCurrency, exchangeRates])
 
@@ -134,7 +124,7 @@ export default function ConverterPage() {
 
       const oldFromCurrency = fromCurrency;
       const oldToCurrency = toCurrency;
-      
+
       // Determine new default currencies based on the swapped direction
       let newFromCurrency: Currency;
       let newToCurrency: Currency;
@@ -149,7 +139,7 @@ export default function ConverterPage() {
         newFromCurrency = flashCurrencyDefs.find(c => c.value === oldToCurrency) ? oldToCurrency as FlashCurrency : flashCurrencyDefs[0].value;
         newToCurrency = originalCurrencyDefs.find(c => c.value === oldFromCurrency) ? oldFromCurrency as OriginalCurrency : originalCurrencyDefs[0].value;
       }
-      
+
       setFromCurrency(newFromCurrency);
       setToCurrency(newToCurrency);
       // fromAmount is kept, toAmount will be recalculated by useEffect
@@ -179,28 +169,23 @@ export default function ConverterPage() {
   useEffect(() => {
     // Adjust currencies if they are not valid for the current direction
     if (isOriginalToFlash) {
-        if (!originalCurrencyDefs.some(opt => opt.value === fromCurrency)) {
-            setFromCurrency(originalCurrencyDefs[0].value);
-        }
-        if (!flashCurrencyDefs.some(opt => opt.value === toCurrency)) {
-            setToCurrency(flashCurrencyDefs[0].value);
-        }
+      if (!originalCurrencyDefs.some(opt => opt.value === fromCurrency)) {
+        setFromCurrency(originalCurrencyDefs[0].value);
+      }
+      if (!flashCurrencyDefs.some(opt => opt.value === toCurrency)) {
+        setToCurrency(flashCurrencyDefs[0].value);
+      }
     } else {
-        if (!flashCurrencyDefs.some(opt => opt.value === fromCurrency)) {
-            setFromCurrency(flashCurrencyDefs[0].value);
-        }
-        if (!originalCurrencyDefs.some(opt => opt.value === toCurrency)) {
-            setToCurrency(originalCurrencyDefs[0].value);
-        }
+      if (!flashCurrencyDefs.some(opt => opt.value === fromCurrency)) {
+        setFromCurrency(flashCurrencyDefs[0].value);
+      }
+      if (!originalCurrencyDefs.some(opt => opt.value === toCurrency)) {
+        setToCurrency(originalCurrencyDefs[0].value);
+      }
     }
   }, [isOriginalToFlash, fromCurrency, toCurrency]);
 
 
-  const popularConversionsList = [
-    { from: "USDT", to: "FUSDT" },
-    { from: "ETH", to: "FETH" },
-    { from: "BTC", to: "FUSDT" },
-  ] as const;
 
 
   return (
@@ -242,7 +227,7 @@ export default function ConverterPage() {
                           onChange={(e) => {
                             const val = e.target.value;
                             if (val === "" || /^\d*\.?\d*$/.test(val)) {
-                                setFromAmount(val);
+                              setFromAmount(val);
                             }
                           }}
                           className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
@@ -285,7 +270,7 @@ export default function ConverterPage() {
                         onChange={(e) => setToCurrency(e.target.value as Currency)}
                         className="block w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
                       >
-                         {toOptions.map(opt => (
+                        {toOptions.map(opt => (
                           <option key={opt.value} value={opt.value}>{opt.label}</option>
                         ))}
                       </select>
@@ -306,8 +291,8 @@ export default function ConverterPage() {
 
               <div className="text-center text-sm text-gray-600 dark:text-gray-400 mb-6">
                 {(exchangeRates[fromCurrency] && exchangeRates[fromCurrency][toCurrency]) ?
-                    `1 ${fromCurrency} = ${exchangeRates[fromCurrency][toCurrency].toFixed(8)} ${toCurrency}` :
-                    `Rate not available for ${fromCurrency} to ${toCurrency}`
+                  `1 ${fromCurrency} = ${exchangeRates[fromCurrency][toCurrency].toFixed(8)} ${toCurrency}` :
+                  `Rate not available for ${fromCurrency} to ${toCurrency}`
                 }
               </div>
 
@@ -315,66 +300,29 @@ export default function ConverterPage() {
                 Convert Now
               </Button>
             </div>
-
-            <div className="bg-gray-50 dark:bg-gray-900 p-8 border-t border-gray-200 dark:border-gray-700">
-              <h3 className="text-lg font-medium text-gray-800 dark:text-white mb-4">Popular Conversions</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {popularConversionsList.map((pair, index) => {
-                  const fromIconPath = popularConversionImageMap[pair.from as Currency];
-                  const toIconPath = popularConversionImageMap[pair.to as Currency];
-                  return (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between p-4 bg-white dark:bg-gray-800 rounded-lg shadow-sm cursor-pointer hover:shadow-md transition-shadow"
-                      onClick={() => {
-                        setFromCurrency(pair.from as OriginalCurrency);
-                        setToCurrency(pair.to as FlashCurrency);
-                        setFromAmount("1");
-                        setIsOriginalToFlash(true);
-                      }}
-                    >
-                      <div className="flex items-center">
-                        {fromIconPath ? (
-                          <Image src={fromIconPath} alt={pair.from} width={24} height={24} className="rounded-full" />
-                        ) : (
-                          getCurrencyIcon(pair.from as Currency)
-                        )}
-                        <span className="ml-2 text-gray-800 dark:text-white">{pair.from}</span>
-                      </div>
-                      <ArrowDownUp size={16} className="text-gray-400 mx-2" />
-                      <div className="flex items-center">
-                        {toIconPath ? (
-                          <Image src={toIconPath} alt={pair.to} width={24} height={24} className="rounded-full" />
-                        ) : (
-                          getCurrencyIcon(pair.to as Currency)
-                        )}
-                        <span className="ml-2 text-gray-800 dark:text-white">{pair.to}</span>
-                      </div>
-                    </div>
-                  )
-                })}
+            <div className="mt-3 px-10">
+              <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">
+                Supported Cryptocurrencies
+              </h2>
+              <div className="coin-grid">
+                {[
+                  { name: "Flash USDT", symbol: "USDT", color: "bg-green-500" },
+                  { name: "Flash ETH", symbol: "ETH", color: "bg-indigo-500" },
+                  { name: "Flash XRP", symbol: "XRP", color: "bg-gray-500" },
+                  { name: "Flash MATIC", symbol: "MATIC", color: "bg-purple-600" },
+                ].map((coin, index) => (
+                  <div key={index} className={`coin-item ${coin.color} text-white font-bold text-xs`} title={coin.name}>
+                    {coin.symbol}
+                  </div>
+                ))}
               </div>
+
             </div>
           </div>
 
-          <div className="mt-20">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 text-center">
-              Supported Cryptocurrencies
-            </h2>
-            <div className="coin-grid">
-              {[
-                { name: "Flash USDT", symbol: "USDT", color: "bg-green-500" },
-                { name: "Flash ETH", symbol: "ETH", color: "bg-indigo-500" },
-                { name: "Flash XRP", symbol: "XRP", color: "bg-gray-500" },
-                { name: "Flash MATIC", symbol: "MATIC", color: "bg-purple-600" },
-              ].map((coin, index) => (
-                <div key={index} className={`coin-item ${coin.color} text-white font-bold text-xs`} title={coin.name}>
-                  {coin.symbol}
-                </div>
-              ))}
-            </div>
-          </div>
+
         </div>
+
       </div>
     </PageWrapper>
   )

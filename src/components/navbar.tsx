@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { Wallet, Menu, X } from "lucide-react"
 import logo from "./logo.png" // Ensure this path is correct relative to your component
+import { HashLink } from 'react-router-hash-link';
 
 // Placeholder CSS for wallet flip animation and other styles
 // Add these styles to your global CSS file (e.g., globals.css)
@@ -131,7 +132,7 @@ export default function Navbar() {
   }
 
   return (
-    <>
+    <div className="overflow-hidden">
       {/* Header: Fixed position, controls background/padding based on scroll/mobile menu state */}
       <header
         className={cn(
@@ -160,11 +161,13 @@ export default function Navbar() {
               </div>
 
               {/* ===== Center: Desktop Navigation (Hidden below lg breakpoint) ===== */}
-              <div className="hidden lg:block sm:ml-6 justify-evenly">
-                 <nav className="flex space-x-5"> {/* Adjust space-x-* as needed */}
-                    <Link href="#how-it-works" className="nav-link">How it works</Link>
-                    <Link href="#features" className="nav-link">Features</Link>
-                    <Link href="#partners" className="nav-link">Partners</Link>
+              <div className="hidden lg:block sm:ml-6 justify-evenly w-full ">
+                 <nav className="flex justify-evenly"> {/* Adjust space-x-* as needed */}
+                    <Link href="/#how-it-works" className="nav-link">How it works</Link>
+                    <Link href="/#features" className="nav-link">Features</Link>
+                    <Link href="/#partners" className="nav-link">Partners</Link>
+                    <Link href="/converter" className="nav-link">Convertor</Link>
+
                     <Link href="/usdt" className="nav-link">USDT</Link>
                     <Link href="/resale" className="nav-link">Resale</Link>
                     {/* <Link href="/converter" className="nav-link">Converter</Link> */}
@@ -201,33 +204,26 @@ export default function Navbar() {
             </div>
         </div>
 
-        {/* Mobile Menu Panel: Absolutely positioned below header, controlled by mobileMenuOpen state */}
         <div
             id="mobile-menu"
             className={cn(
-                "lg:hidden", // Hidden on large screens and up
-                // Positioning relative to the header
+                "lg:hidden", 
                 "absolute top-full left-0 w-full max-w-full", // Takes full width below header
-                // Animation classes
                 "transition-all duration-300 ease-in-out transform origin-top", // Smooth transition, scales from top
                 mobileMenuOpen ? "max-h-[80vh] opacity-100 scale-y-100" : "max-h-0 opacity-0 scale-y-95", // Animate height, opacity, scale
-                // Styling and overflow control
                 "bg-white dark:bg-gray-950 shadow-lg border-t border-gray-200 dark:border-gray-800",
                 "overflow-y-auto overflow-x-hidden" // Allow vertical scroll if needed, prevent horizontal scroll
             )}
-            // Optional: Set a dynamic max-height based on viewport if needed,
-            // but max-h-[80vh] in className is often sufficient.
-            // style={{ maxHeight: mobileMenuOpen ? 'calc(100vh - 4rem)' : '0' }} // Example using style prop
         >
-             {/* Inner container for padding */}
              <div className="px-4 pt-2 pb-4">
-                 {/* Mobile navigation links */}
                  <div className="space-y-1">
                     <Link href="#how-it-works" className="nav-link block" onClick={closeMobileMenu}>How it works</Link>
                     <Link href="#features" className="nav-link block" onClick={closeMobileMenu}>Features</Link>
                     <Link href="#partners" className="nav-link block" onClick={closeMobileMenu}>Partners</Link>
+                    <Link href="/converter" className="nav-link block" onClick={closeMobileMenu}>Convertor</Link>
                     <Link href="/usdt" className="nav-link block" onClick={closeMobileMenu}>USDT</Link>
                     <Link href="/resale" className="nav-link block" onClick={closeMobileMenu}>Resale</Link>
+
                     {/* <Link href="/converter" className="nav-link block" onClick={closeMobileMenu}>Converter</Link> */}
                     {/* <Link href="#roadmap" className="nav-link block" onClick={closeMobileMenu}>Roadmap</Link> */}
                  </div>
@@ -273,6 +269,6 @@ export default function Navbar() {
           </div>
         </div>
       )}
-    </>
+    </div>
   )
 }
