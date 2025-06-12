@@ -20,6 +20,9 @@ export default function OperatorPage() {
     initAnimations()
   }, [])
 
+
+  
+  
   return (
     <PageWrapper>
       <div className="pt-32 pb-20 px-4 md:px-0">
